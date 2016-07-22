@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <title>Alarm</title>
+    <!-- CSS files for TAU and circle UI -->
+    <link rel="stylesheet" href="lib/tau/wearable/theme/default/tau.min.css">
+    <link rel="stylesheet" media="all and (-tizen-geometric-shape: circle)" href="lib/tau/wearable/theme/default/tau.circle.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- main page -->
+    <div id="main-page" class="ui-page">
+
+        <!-- header -->
+        <header class="ui-header">
+            <h2 class="ui-title">Alarm</h2>
+        </header>
+
+        <!-- content -->
+        <div class="ui-content">
+            <ul class="ui-listview" id="alarmList">
+                <li class="li-has-multiline li-has-toggle">
+                    <label>
+                        <div class="alarm-list ">
+                            <div class="time-container">
+                                <span class="time">7:45</span>
+                                <span class="ampm">AM</span>
+                            </div>
+                            <div class="li-text-sub ui-li-sub-text date-container">
+                                <span class="normal">Wed, 6 May</span>
+                            </div>
+                        </div>
+                        <div class="ui-toggleswitch">
+                            <input type="checkbox" class="ui-switch-input">
+                            <div class="ui-switch-button"></div>
+                        </div>
+                    </label>
+                </li>
+                <li class="li-has-multiline li-has-toggle">
+                    <label>
+                        <div class="alarm-list ">
+                            <div class="time-container">
+                                <span class="time">7:50</span>
+                                <span class="ampm">AM</span>
+                            </div>
+                            <div class="li-text-sub ui-li-sub-text date-container">
+                                <span class="select">S M T W T F S</span>
+                            </div>
+                        </div>
+                        <div class="ui-toggleswitch">
+                            <input type="checkbox" class="ui-switch-input">
+                            <div class="ui-switch-button"></div>
+                        </div>
+                    </label>
+                </li>
+                <li class="li-has-multiline li-has-toggle">
+                    <label>
+                        <div class="alarm-list ">
+                            <div class="time-container">
+                                <span class="time">7:55</span>
+                                <span class="ampm">AM</span>
+                            </div>
+                            <div class="li-text-sub ui-li-sub-text date-container">
+                                <span class="normal">S M T W</span>
+                                <span class="select">T F</span>
+                                <span class="normal">S</span>
+                            </div>
+                        </div>
+                        <div class="ui-toggleswitch">
+                            <input type="checkbox" class="ui-switch-input">
+                            <div class="ui-switch-button"></div>
+                        </div>
+                    </label>
+                </li>
+                <li class="li-has-multiline li-has-toggle">
+                    <label>
+                        <div class="alarm-list ">
+                            <div class="time-container">
+                                <span class="time">8:00</span>
+                                <span class="ampm">AM</span>
+                            </div>
+                            <div class="li-text-sub ui-li-sub-text date-container">
+                                <span class="normal">Wed, 7 May</span>
+                            </div>
+                        </div>
+                        <div class="ui-toggleswitch">
+                            <input type="checkbox" class="ui-switch-input">
+                            <div class="ui-switch-button"></div>
+                        </div>
+                    </label>
+                </li>
+            </ul>
+            
+        </div>
+
+        <!-- footer -->
+        <footer class="ui-footer ui-bottom-button">
+            <button class="ui-btn" id="add-alarm-button">ADD</button>
+        </footer>
+    </div>
+
+    <!-- alarm set page -->
+    <!-- This page is alarm set page, you can set alarm time and repeat information on this page -->
+    <!-- This page consists of 2 pages -->
+    <!-- The one is set time page and the other is set repeat page -->
+    <div id="alarm-set-page" class="ui-page" data-enable-page-scroll="false">
+        <div id="indicator" class="ui-page-indicator"></div>
+        <div id="sectionchanger-newalarm" class="ui-content">
+            <div>
+                <section class="ui-section-active">
+                    <header class="ui-header">
+                        <h2 class="ui-title">Set alarm</h2>
+                    </header>
+                    <p class="set-time-unit"><span>Hrs</span><span class="set-time-unit-min">Mins</span></p>
+                    <p class="set-time"><span id="hourAlarm" class="set-time-hour">08</span>:<span id="minuteAlarm" class="set-time-min">20</span></p>
+                     <script>
+                     
+	                   
+                     document.addEventListener("rotarydetent", function(ev) 
+                    		 {
+		                    	 var page = document.getElementsByClassName( 'ui-page-active' )[0];
+		                    	 var pageid = page ? page.id : "";
+		                    	 if (pageid === 'alarm-set-page'){
+		                             var hour = document.getElementById("hourAlarm").innerHTML;
+		                             var minute = document.getElementById("minuteAlarm").innerHTML; 
+	                    		    /* Get the direction value from the event */
+	                    		    var direction = ev.detail.direction;
+	                    		    
+	                    		    if (direction == "CW")
+	                    		    {
+		                    		    if (parseInt(minute) === 59){
+		                    		    	var tempHour = parseInt(hour);
+			                    		    hour = '';
+			                    		    minute = '00';
+			                    		    
+			                    		    
+			                    		    if (tempHour === 23){
+				                    		    tempHour = 0;
+				                    		   }
+			                    		    else{
+			                    		    	tempHour = tempHour + 1;
+			                    		    	}
+				                    		if (tempHour < 10){
+					                    		hour = '0';
+					                    	}
+					                    	hour = hour + tempHour;
+			                    		}
+		                    		    else{
+			                    		    var tempMinute = parseInt(minute);
+			                    		    tempMinute = tempMinute + 1;
+			                    		    minute = "";
+			                    		    if (tempMinute < 10){
+												minute = '0';
+				                    		}
+				                    		minute = minute + tempMinute;
+			                    		}
+		                    		    var hour = document.getElementById("hourAlarm").innerHTML = hour;
+			                             var minute = document.getElementById("minuteAlarm").innerHTML = minute;
+	                    		       //bigger
+	                    		    }
+	                    		    else if (direction == "CCW")
+	                    		    {
+
+	                    		    	if (parseInt(minute) === 0){
+		                    		    	var tempHour = parseInt(hour);
+			                    		    hour = '';
+			                    		    minute = '59';
+			                    		    
+			                    		    
+			                    		    if (tempHour === 0){
+				                    		    tempHour = 23;
+				                    		   }
+			                    		    else{
+				                    		    tempHour = tempHour - 1;
+				                    		    }
+				                    		if (tempHour < 10){
+					                    		hour = '0';
+					                    	}
+					                    	hour = hour + tempHour;
+			                    		}
+		                    		    else{
+			                    		    var tempMinute = parseInt(minute);
+			                    		    tempMinute = tempMinute - 1;
+			                    		    minute = "";
+			                    		    if (tempMinute < 10){
+												minute = '0';
+				                    		}
+				                    		minute = minute + tempMinute;
+			                    		}
+		                    		    var hour = document.getElementById("hourAlarm").innerHTML = hour;
+			                             var minute = document.getElementById("minuteAlarm").innerHTML = minute;
+	                    		    	//smaller
+	                    		    }
+		                    	 }
+                    		 });
+                     </script>
+
+                </section>
+               
+            </div>
+        </div>
+        <footer class="ui-footer ui-bottom-button ui-fixed">
+            <button onclick="setAlarm();"id="alarm-set-page-footer-button" class="ui-btn">SET</button>
+        </footer>
+    </div>
+    <!-- common javascript files for TAU and circle UI -->
+    <script type="text/javascript" src="lib/tau/wearable/js/tau.min.js"></script>
+    <script type="text/javascript" src="js/circle-helper.js"></script>
+    <!-- javascript file for application common element -->
+    <script src="js/app.js"></script>
+    <!-- javascript file for indicator animation (indicator-page) -->
+    <script src="js/pageindicator.js"></script>
+</body>
+</html>

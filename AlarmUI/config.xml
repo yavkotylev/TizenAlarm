@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="http://yourdomain/AlarmUI" version="1.0.0" viewmodes="maximized">
+    <tizen:app-control>
+        <tizen:src name="alarm.html"/>
+        <tizen:operation name="http://tizen.org/appcontrol/operation/alarm"/>
+    </tizen:app-control>
+    <tizen:application id="d3iKuAuxT4.AlarmUI" package="d3iKuAuxT4" required_version="2.3"/>
+    <content src="index.html"/>
+    <feature name="http://tizen.org/feature/screen.size.normal"/>
+    <icon src="icon.png"/>
+    <name>AlarmUI</name>
+    <tizen:privilege name="http://tizen.org/privilege/application.launch"/>
+    <tizen:privilege name="http://tizen.org/privilege/alarm"/>
+    <tizen:profile name="wearable"/>
+    <tizen:setting background-support="disable" encryption="disable" hwkey-event="enable"/>
+</widget>
